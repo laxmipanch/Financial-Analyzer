@@ -13,12 +13,16 @@ from mcp_agent.app import MCPApp
 from mcp_agent.agents.agent import Agent
 from mcp_agent.workflows.orchestrator.orchestrator import Orchestrator
 from mcp_agent.workflows.llm.augmented_llm import RequestParams
+#from mcp_agent.workflows.llm.augmented_llm_anthropic import AnthropicAugmentedLLM
 from mcp_agent.workflows.llm.augmented_llm_openai import OpenAIAugmentedLLM
 from mcp_agent.workflows.evaluator_optimizer.evaluator_optimizer import (
     EvaluatorOptimizerLLM,
     QualityRating,
 )
-
+from io import StringIO
+import logging
+from datetime import datetime
+import markdown
 # Configuration values
 OUTPUT_DIR = "company_reports"
 COMPANY_NAME = "Apple" if len(sys.argv) <= 1 else sys.argv[1]
@@ -204,6 +208,20 @@ async def main():
             return False
 
 
+log_buffer = StringIO()
+
+class UILogHandler(logging.Handler):
+    def emit(self, record):
+        msg = self.format(record)
+        log_buffer.write(msg + "\n")
+        log_buffer.flush()
+
+logger = logging.getLogger("stock_analyzer")
+logger.setLevel(logging.INFO)
+logger.addHandler(UILogHandler())
+logger.addHandler(logging.StreamHandler())
+
+OUTPUT_DIR = "company_reports"
 # if __name__ == "__main__":
     # asyncio.run(main())
 # Add this to the end of your current script:

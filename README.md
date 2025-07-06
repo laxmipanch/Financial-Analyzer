@@ -1,4 +1,4 @@
 # Financial-Analyzer
 
 ## Demo
-[Watch the demo video](https://github.com/laxmipanch/Financial-Analyzer/blob/main/Financial%20Analyser.mp4)
+[Watch the demo video](https://drive.google.com/file/d/165NrAk9vmVE96c5RJzUHC9yRa-sBIyGv/view)
